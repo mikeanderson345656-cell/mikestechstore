@@ -11,7 +11,6 @@
   <header>
     <nav class="navbar">
       <div class="logo">
-        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAMAAACdt4HsAAAAP1BMVEUAAAD///////////////////////////////////////////////////////////////////////////////////////////////////9BRKBeAAAADHRSTlMAEBAQICAQFBQYGBwcHB4a7R6jAAAApklEQVR42u3WwQ2AIBAFUEMozv7/fx8rFJCFYIky3+94r1YMQfVddRR1gBHIjA8kQxkDdOZr2AOQQs9E0A4Sx6ugEgPDMYgBK0QAIrAAJYwAZjABOsABGcAAK5AAP8chdtkH6DYQX3DZoZllkgQUzzLrW9V3ZEVs7cVZqzGls09YML0m2TeuYOfng/xwaJsgMmnMzhfxPljL2AQKsFOHQAAAAASUVORK5CYII=" alt="Mike's Tech Store Logo">
         <h1>Mike’s Tech Store</h1>
       </div>
       <ul class="nav-links">
@@ -19,23 +18,35 @@
         <li><a href="shop.html">Shop</a></li>
         <li><a href="cart.html">Cart</a></li>
         <li><a href="checkout.html">Checkout</a></li>
-        <li><a href="login.html">Login</a></li>
+        <li><a href="login.html" class="active">Login</a></li>
         <li><a href="register.html">Register</a></li>
       </ul>
     </nav>
   </header>
 
-  <main>
-    <h2>Login</h2>
-    <form id="login-form">
-      <label for="email">Email:</label>
-      <input type="email" id="email" name="email" placeholder="Enter your email" required>
+  <main class="login-modern">
+    <div class="auth-card">
+      <h2>Welcome Back</h2>
+      <form id="login-form">
+        <div class="input-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" name="email" placeholder="Enter your email" required>
+        </div>
 
-      <label for="password">Password:</label>
-      <input type="password" id="password" name="password" placeholder="Enter your password" required>
+        <div class="input-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" placeholder="Enter your password" required>
+        </div>
 
-      <button type="submit">Login</button>
-    </form>
+        <button type="submit">Login</button>
+      </form>
+
+      <p>Don’t have an account? <a href="register.html">Register here</a></p>
+    </div>
   </main>
+
+  <footer>
+    <p>&copy; 2020 Mike's Tech Store. All rights reserved.</p>
+  </footer>
 </body>
 </html>

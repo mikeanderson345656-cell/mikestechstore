@@ -5,29 +5,195 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Shop - Mike's Tech Store</title>
   <link rel="stylesheet" href="style.css">
-  <script src="shop.js" defer></script>
+  <script defer src="shop.js"></script>
 </head>
 <body>
+  <!-- Header / Navbar -->
   <header>
     <nav class="navbar">
-      <div class="logo">
-        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAMAAACdt4HsAAAAP1BMVEUAAAD///////////////////////////////////////////////////////////////////////////////////////////////////9BRKBeAAAADHRSTlMAEBAQICAQFBQYGBwcHB4a7R6jAAAApklEQVR42u3WwQ2AIBAFUEMozv7/fx8rFJCFYIky3+94r1YMQfVddRR1gBHIjA8kQxkDdOZr2AOQQs9E0A4Sx6ugEgPDMYgBK0QAIrAAJYwAZjABOsABGcAAK5AAP8chdtkH6DYQX3DZoZllkgQUzzLrW9V3ZEVs7cVZqzGls09YML0m2TeuYOfng/xwaJsgMmnMzhfxPljL2AQKsFOHQAAAAASUVORK5CYII=" alt="Mike's Tech Store Logo">
-        <h1>Mike’s Tech Store</h1>
-      </div>
       <ul class="nav-links">
         <li><a href="index.html">Home</a></li>
-        <li><a href="shop.html">Shop</a></li>
-        <li><a href="cart.html">Cart</a></li>
+        <li><a href="shop.html" class="active">Shop</a></li>
+        <li><a href="cart.html">Cart (<span id="cart-count">0</span>)</a></li>
         <li><a href="checkout.html">Checkout</a></li>
-        <li><a href="login.html">Login</a></li>
-        <li><a href="register.html">Register</a></li>
       </ul>
     </nav>
   </header>
 
+  <!-- Main Content -->
   <main>
-    <h2>Shop Products</h2>
-    <div id="product-list"></div>
+    <h1>Apple Devices</h1>
+
+    <!-- Product Grid -->
+    <div class="products">
+
+      <!-- iPhone -->
+      <div class="product-card">
+        <img src="images/iphone-15-pro.jpg" alt="iPhone 15 Pro">
+        <h2>iPhone 15</h2>
+        <p>$620</p>
+
+        <label for="color-iphone">Color:</label>
+        <select id="color-iphone">
+          <option value="Black">Black</option>
+          <option value="Blue">Blue</option>
+          <option value="Red">Red</option>
+          <option value="White">White</option>
+        </select>
+
+        <label for="qty-iphone">Qty:</label>
+        <input id="qty-iphone" type="number" min="1" value="1">
+
+        <button onclick="addToCart('iPhone 15', 620, document.getElementById('qty-iphone').value, document.getElementById('color-iphone').value)">Add to Cart</button>
+      </div>
+
+      <!-- AirPods -->
+      <div class="product-card">
+        <img src="images/airpods-pro-2nd-gen.jpg" alt="AirPods Pro (2nd Gen)">
+        <h2>AirPods Pro (2nd Gen)</h2>
+        <p>$249</p>
+
+        <label for="color-airpods">Color:</label>
+        <select id="color-airpods">
+          <option value="White">White</option>
+          <option value="Black">Black</option>
+        </select>
+
+        <label for="qty-airpods">Qty:</label>
+        <input id="qty-airpods" type="number" min="1" value="1">
+
+        <button onclick="addToCart('AirPods Pro (2nd Gen)', 249, document.getElementById('qty-airpods').value, document.getElementById('color-airpods').value)">Add to Cart</button>
+      </div>
+
+      <!-- Apple Watch -->
+      <div class="product-card">
+        <img src="images/apple-watch-ultra-2.jpg" alt="Apple Watch Ultra 2">
+        <h2>Apple Watch Ultra 2</h2>
+        <p>$799</p>
+
+        <label for="color-watch">Color:</label>
+        <select id="color-watch">
+          <option value="Orange Band">Orange Band</option>
+          <option value="Black Band">Black Band</option>
+          <option value="White Band">White Band</option>
+        </select>
+
+        <label for="qty-watch">Qty:</label>
+        <input id="qty-watch" type="number" min="1" value="1">
+
+        <button onclick="addToCart('Apple Watch Ultra 2', 799, document.getElementById('qty-watch').value, document.getElementById('color-watch').value)">Add to Cart</button>
+      </div>
+
+      <!-- iPad -->
+      <div class="product-card">
+        <img src="images/ipad-pro-12-9.jpg" alt="iPad Pro 12.9">
+        <h2>iPad Pro 12.9</h2>
+        <p>$418</p>
+
+        <label for="color-ipad">Color:</label>
+        <select id="color-ipad">
+          <option value="Silver">Silver</option>
+          <option value="Space Gray">Space Gray</option>
+        </select>
+
+        <label for="qty-ipad">Qty:</label>
+        <input id="qty-ipad" type="number" min="1" value="1">
+
+        <button onclick="addToCart('iPad Pro 12.9', 418, document.getElementById('qty-ipad').value, document.getElementById('color-ipad').value)">Add to Cart</button>
+      </div>
+
+      <!-- MacBook -->
+      <div class="product-card">
+        <img src="images/macbook-pro-16.jpg" alt="MacBook Pro 16">
+        <h2>MacBook Pro</h2>
+        <p>$1999</p>
+
+        <label for="color-macbook">Color:</label>
+        <select id="color-macbook">
+          <option value="Silver">Silver</option>
+          <option value="Space Gray">Space Gray</option>
+          <option value="Black">Black</option>
+        </select>
+
+        <label for="qty-macbook">Qty:</label>
+        <input id="qty-macbook" type="number" min="1" value="1">
+
+        <button onclick="addToCart('MacBook Pro', 1999, document.getElementById('qty-macbook').value, document.getElementById('color-macbook').value)">Add to Cart</button>
+      </div>
+
+      <!-- Apple TV -->
+      <div class="product-card">
+        <img src="images/apple-tv-4k.jpg" alt="Apple TV 4K">
+        <h2>Apple TV 4K</h2>
+        <p>$129</p>
+
+        <label for="color-appletv">Model:</label>
+        <select id="color-appletv">
+          <option value="64GB">64GB</option>
+          <option value="128GB">128GB</option>
+        </select>
+
+        <label for="qty-appletv">Qty:</label>
+        <input id="qty-appletv" type="number" min="1" value="1">
+
+        <button onclick="addToCart('Apple TV 4K', 129, document.getElementById('qty-appletv').value, document.getElementById('color-appletv').value)">Add to Cart</button>
+      </div>
+
+      <!-- HomePod -->
+      <div class="product-card">
+        <img src="images/homepod-2.jpg" alt="HomePod 2">
+        <h2>HomePod 2</h2>
+        <p>$299</p>
+
+        <label for="color-homepod">Color:</label>
+        <select id="color-homepod">
+          <option value="White">White</option>
+          <option value="Midnight">Midnight</option>
+        </select>
+
+        <label for="qty-homepod">Qty:</label>
+        <input id="qty-homepod" type="number" min="1" value="1">
+
+        <button onclick="addToCart('HomePod 2', 299, document.getElementById('qty-homepod').value, document.getElementById('color-homepod').value)">Add to Cart</button>
+      </div>
+
+      <!-- Magic Keyboard -->
+      <div class="product-card">
+        <img src="images/magic-keyboard.jpg" alt="Magic Keyboard">
+        <h2>Magic Keyboard</h2>
+        <p>$99</p>
+
+        <label for="color-keyboard">Color:</label>
+        <select id="color-keyboard">
+          <option value="White">White</option>
+          <option value="Black">Black</option>
+        </select>
+
+        <label for="qty-keyboard">Qty:</label>
+        <input id="qty-keyboard" type="number" min="1" value="1">
+
+        <button onclick="addToCart('Magic Keyboard', 99, document.getElementById('qty-keyboard').value, document.getElementById('color-keyboard').value)">Add to Cart</button>
+      </div>
+
+      <!-- AirTag -->
+      <div class="product-card">
+        <img src="images/airtag.jpg" alt="AirTag">
+        <h2>AirTag</h2>
+        <p>$29</p>
+
+        <label for="color-airtag">Pack:</label>
+        <select id="color-airtag">
+          <option value="1 Pack">1 Pack</option>
+          <option value="4 Pack">4 Pack</option>
+        </select>
+
+        <label for="qty-airtag">Qty:</label>
+        <input id="qty-airtag" type="number" min="1" value="1">
+
+        <button onclick="addToCart('AirTag', 29, document.getElementById('qty-airtag').value, document.getElementById('color-airtag').value)">Add to Cart</button>
+      </div>
+
+    </div>
   </main>
 </body>
 </html>

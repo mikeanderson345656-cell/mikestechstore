@@ -1,45 +1,51 @@
-// cart.js
+document.addEventListener("DOMContentLoaded", () => {
+  renderCart();
+});
 
-const cartItemsContainer = document.getElementById("cart-items");
-const cartTotalContainer = document.getElementById("cart-total");
-
-// Load cart (contains only {id, quantity})
-let cart = JSON.parse(localStorage.getItem("cart")) || [];
-
+// Renders the cart on page load
 function renderCart() {
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+  let cartItemsContainer = document.getElementById("cart-items");
+  let cartTotal = document.getElementById("cart-total");
+
   cartItemsContainer.innerHTML = "";
   let total = 0;
 
-  cart.forEach(item => {
-    const product = products.find(p => p.id === item.id);
-    if (!product) return; // safety check
+  if (cart.length === 0) {
+    cartItemsContainer.innerHTML = "<p>Your cart is empty.</p>";
+    cartTotal.textContent = "Total: $0.00";
+    updateCartCount();
+    return;
+  }
 
-    const subtotal = product.price * item.quantity;
-    total += subtotal;
-
-    const div = document.createElement("div");
-    div.className = "cart-item";
+  cart.forEach((item, index) => {
+    let div = document.createElement("div");
+    div.classList.add("cart-item");
 
     div.innerHTML = `
-      <img src="${product.image}" alt="${product.name}" width="80">
-      <div>
-        <h3>${product.name}</h3>
-        <p>$${product.price} × ${item.quantity} = $${subtotal}</p>
-        <button class="btn" onclick="removeFromCart(${item.id})">Remove</button>
-      </div>
+      <p>${item.name} - $${item.price} × ${item.quantity}</p>
+      <button onclick="removeFromCart(${index})">Remove</button>
     `;
 
     cartItemsContainer.appendChild(div);
+    total += Number(item.price) * Number(item.quantity);
   });
 
-  cartTotalContainer.textContent = `Total: $${total}`;
+  cartTotal.textContent = `Total: $${total.toFixed(2)}`;
+  updateCartCount();
 }
 
-function removeFromCart(id) {
-  cart = cart.filter(item => item.id !== id);
+// Updates the cart count in navbar
+function updateCartCount() {
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+  let count = cart.reduce((sum, item) => sum + item.quantity, 0);
+  document.getElementById("cart-count").textContent = count;
+}
+
+// Removes an item by index
+function removeFromCart(index) {
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+  cart.splice(index, 1);
   localStorage.setItem("cart", JSON.stringify(cart));
   renderCart();
 }
-
-// Run on page load
-renderCart();

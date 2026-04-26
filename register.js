@@ -1,29 +1,19 @@
-// register.js — resilient registration (localStorage demo auth)
+// register.js — modern registration with localStorage demo auth
 (function () {
   document.addEventListener("DOMContentLoaded", () => {
-    const form =
-      document.getElementById("register-form") ||
-      document.getElementById("registerForm");
+    const form = document.getElementById("register-form");
 
     if (!form) {
       console.warn("[register.js] Register form not found.");
       return;
     }
 
-    const nameInput =
-      document.getElementById("name") ||
-      document.getElementById("registerName") ||
-      form.querySelector('input[name="name"]');
-
-    const emailInput =
-      document.getElementById("email") ||
-      document.getElementById("registerEmail") ||
-      form.querySelector('input[type="email"]');
-
-    const passwordInput =
-      document.getElementById("password") ||
-      document.getElementById("registerPassword") ||
-      form.querySelector('input[type="password"]');
+    const nameInput = document.getElementById("name");
+    const emailInput = document.getElementById("email");
+    const passwordInput = document.getElementById("password");
+    const confirmPasswordInput =
+      document.getElementById("confirmPassword") ||
+      form.querySelector('input[name="confirmPassword"]');
 
     const safeParse = (key, fallback) => {
       try {
@@ -40,19 +30,25 @@
       const name = (nameInput?.value || "").trim();
       const email = (emailInput?.value || "").trim().toLowerCase();
       const password = (passwordInput?.value || "").trim();
+      const confirmPassword = (confirmPasswordInput?.value || "").trim();
 
-      if (!name || !email || !password) {
-        alert("Please fill in name, email and password.");
+      if (!name || !email || !password || !confirmPassword) {
+        alert("Please fill in all fields.");
         return;
       }
 
       if (!/^\S+@\S+\.\S+$/.test(email)) {
-        alert("Please enter a valid email.");
+        alert("Please enter a valid email address.");
         return;
       }
 
       if (password.length < 6) {
-        alert("Password should be at least 6 characters.");
+        alert("Password must be at least 6 characters long.");
+        return;
+      }
+
+      if (password !== confirmPassword) {
+        alert("Passwords do not match.");
         return;
       }
 

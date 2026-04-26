@@ -1,40 +1,47 @@
-// shop.js
+function addToCart(name, price, quantity = 1) {
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-const productList = document.getElementById("product-list");
+  // Ensure price is saved as a number
+  price = Number(price);
+  quantity = Number(quantity);
 
-// Load cart (only store product IDs + quantities)
-let cart = JSON.parse(localStorage.getItem("cart")) || [];
-
-// Render all products from products.js
-function renderProducts() {
-  products.forEach(product => {
-    const div = document.createElement("div");
-    div.className = "product-card";
-
-    div.innerHTML = `
-      <img src="${product.image}" alt="${product.name}" width="200">
-      <h3>${product.name}</h3>
-      <p>$${product.price}</p>
-      <button class="btn primary" onclick="addToCart(${product.id})">Add to Cart</button>
-    `;
-
-    productList.appendChild(div);
-  });
-}
-
-// Add to cart (only id + quantity saved)
-function addToCart(id) {
-  const existing = cart.find(item => item.id === id);
-
-  if (existing) {
-    existing.quantity += 1;
+  let existingItem = cart.find(item => item.name === name);
+  if (existingItem) {
+    existingItem.quantity += quantity;
   } else {
-    cart.push({ id, quantity: 1 });
+    cart.push({ name, price, quantity });
   }
 
   localStorage.setItem("cart", JSON.stringify(cart));
-  alert("Item added to cart!");
+
+  updateCartCount();
+  alert(`${quantity} x ${name} added to cart!`);
 }
 
-// Run on page load
-renderProducts();
+function updateCartCount() {
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+  let count = cart.reduce((sum, item) => sum + item.quantity, 0);
+  document.getElementById("cart-count").textContent = count;
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  updateCartCount();
+
+  // Background color picker
+  const bgColorInput = document.getElementById("bg-color");
+  if (bgColorInput) {
+    // Load saved color if any
+    const savedColor = localStorage.getItem("bgColor");
+    if (savedColor) {
+      document.body.style.backgroundColor = savedColor;
+      bgColorInput.value = savedColor;
+    }
+
+    // Change theme on input
+    bgColorInput.addEventListener("input", (e) => {
+      const color = e.target.value;
+      document.body.style.backgroundColor = color;
+      localStorage.setItem("bgColor", color);
+    });
+  }
+});
